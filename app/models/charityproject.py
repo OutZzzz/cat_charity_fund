@@ -1,15 +1,18 @@
-from sqlalchemy import (
-    Column, String, Text,
-    Integer, Boolean, DateTime)
+from sqlalchemy import Column, Text, String
 
-from app.core.db import Base
+from app.models.base import BaseDonationModel
 
 
-class CharityProject(Base):
+""" class CharityProject(Base):
     name = Column(String(100), unique=True, nullable=False)
-    description = Column(Text)
-    full_amount = Column(Integer)
-    invested_amount = Column(Integer)
-    fully_invested = Column(Boolean)
-    create_date = Column(DateTime)
-    close_date = Column(DateTime)
+    description = Column(Text, nullable=False)
+    full_amount = Column(Integer, nullable=False)
+    invested_amount = Column(Integer, nullable=False)
+    fully_invested = Column(Boolean, nullable=False)
+    create_date = Column(DateTime, nullable=False)
+    close_date = Column(DateTime, nullable=True) """
+
+
+class CharityProject(BaseDonationModel):
+    name = Column(String(100), unique=True, nullable=False)
+    description = Column(Text, nullable=False)
