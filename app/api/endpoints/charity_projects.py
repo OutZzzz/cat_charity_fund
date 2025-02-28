@@ -8,6 +8,8 @@ from app.schemas.charityproject import (
     CharityProjectDB, CharityProjectCreate, CharityProjectUpdate)
 from app.crud.charity_projects import charity_project_crud
 from app.api.validators import check_project_exists
+from app.services.make_donation import (
+    get_donation_with_free_money, make_donation)
 
 router = APIRouter()
 
@@ -23,9 +25,11 @@ async def create_new_charity_project(
 ):
     """
     Только для суперюзеров.\n
-    Создаёт благотворительный проект.
-    Не дописан"""
+    Создаёт благотворительный проект."""
     new_project = await charity_project_crud.create(charity_project, session)
+    donation = await get_donation_with_free_money(session)
+    if donation is not None:
+        await make_donation(donation, session)
     return new_project
 
 
