@@ -23,4 +23,4 @@ class DonationSuperUserDB(DonationUserDB):
     user_id: int
     invested_amount: int
     fully_invested: bool
-    close_date: datetime
+    close_date: Optional[datetime]
