@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import Field, BaseModel
+from pydantic import Field, BaseModel, Extra
 
 
 class DonationCreate(BaseModel):
@@ -17,6 +17,7 @@ class DonationUserDB(BaseModel):
 
     class Config:
         orm_mode = True
+        extra = Extra.forbid
 
 
 class DonationSuperUserDB(DonationUserDB):
