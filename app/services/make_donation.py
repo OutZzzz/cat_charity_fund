@@ -12,7 +12,7 @@ async def get_first_in_donation(
     project = await session.execute(
         select(CharityProject).where(
             not_(CharityProject.fully_invested)).order_by(
-                CharityProject.id))
+                CharityProject.create_date))
     return project.scalars().first()
 
 
@@ -51,8 +51,6 @@ async def make_donation(
         if donation.fully_invested:
             donation.close_date = datetime.now()
 
-        session.add(project)
-        session.add(donation)
         await session.commit()
         await session.refresh(project)
         await session.refresh(donation)
