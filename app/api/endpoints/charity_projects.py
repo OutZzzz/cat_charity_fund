@@ -7,7 +7,9 @@ from app.core.user import current_superuser
 from app.schemas.charityproject import (
     CharityProjectDB, CharityProjectCreate, CharityProjectUpdate)
 from app.crud.charity_projects import charity_project_crud
-from app.api.validators import check_project_exists
+from app.api.validators import (
+    check_project_exists, check_name_unique, check_proj_for_delete,
+    check_proj_for_update, check_value)
 from app.services.make_donation import (
     get_donation_with_free_money, make_donation)
 
@@ -26,8 +28,11 @@ async def create_new_charity_project(
     """
     Только для суперюзеров.\n
     Создаёт благотворительный проект."""
+    await check_name_unique(charity_project, session)
+
     new_project = await charity_project_crud.create(charity_project, session)
     donation = await get_donation_with_free_money(session)
+
     if donation is not None:
         await make_donation(donation, session)
     return new_project
@@ -62,6 +67,7 @@ async def delete_project(
     """
     project = await check_project_exists(
         project_id=project_id, session=session)
+    check_proj_for_delete(project)
     project = await charity_project_crud.delete(project, session)
     return project
 
@@ -70,7 +76,7 @@ async def delete_project(
     '/{project_id}',
     response_model=CharityProjectDB,
     response_model_exclude_none=True,
-    #dependencies=[Depends(current_superuser)],
+    dependencies=[Depends(current_superuser)],
 )
 async def update_project(
     project_id: int,
@@ -83,7 +89,9 @@ async def update_project(
     project = await check_project_exists(
         project_id=project_id, session=session
     )
-
+    check_proj_for_update(project)
+    if obj_in.full_amount:
+        check_value(project, obj_in)
     project = await charity_project_crud.update(
         project, obj_in, session
     )
