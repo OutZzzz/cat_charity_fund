@@ -3,6 +3,7 @@ from sqlalchemy import select
 from fastapi.encoders import jsonable_encoder
 
 from app.models import CharityProject
+from app.schemas import CharityProjectCreate
 from .base import CRUDBase
 
 
@@ -43,6 +44,18 @@ class CRUDCharityProject(CRUDBase):
         db_obj = await session.execute(
             select(self.model).where(
                 self.model.id == obj_id
+            )
+        )
+        return db_obj.scalars().first()
+
+    async def get_obj_with_same_name(
+            self,
+            obj_in: CharityProjectCreate,
+            session: AsyncSession
+    ):
+        db_obj = await session.execute(
+            select(self.model).where(
+                self.model.name == obj_in.name
             )
         )
         return db_obj.scalars().first()
