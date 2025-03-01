@@ -8,7 +8,6 @@ from app.schemas.donation import (
     DonationCreate, DonationUserDB, DonationSuperUserDB)
 from app.crud.donation import donation_crud
 from app.models import User
-
 from app.services.make_donation import make_donation
 
 router = APIRouter()
