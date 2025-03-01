@@ -11,9 +11,9 @@ class CharityProjectCreate(BaseModel):
 
 
 class CharityProjectUpdate(BaseModel):
-    name: Optional[str] = Field(..., min_length=1, max_length=100)
-    description: Optional[str] = Field(..., min_length=1)
-    full_amount: Optional[int] = Field(..., gt=0)
+    name: Optional[str] = Field(None, min_length=1, max_length=100)
+    description: Optional[str] = Field(None, min_length=1)
+    full_amount: Optional[int] = Field(None, gt=0)
 
 
 class CharityProjectDB(BaseModel):
