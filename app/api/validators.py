@@ -32,7 +32,7 @@ async def check_name_unique(
         )
 
 
-def check_proj_for_delete(project: CharityProject):
+def check_proj_before_delete(project: CharityProject):
     if project.fully_invested or (project.invested_amount != 0):
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
@@ -43,7 +43,7 @@ def check_proj_for_delete(project: CharityProject):
         )
 
 
-def check_proj_for_update(project: CharityProject):
+def check_proj_unclose(project: CharityProject):
     if project.fully_invested:
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
