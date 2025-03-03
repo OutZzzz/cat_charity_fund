@@ -37,8 +37,8 @@ def check_proj_before_delete(project: CharityProject):
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
             detail=(
-                f"Нельзя удалять закрытый проект или проект, "
-                f"в который уже были инвестированы деньги"
+                "Нельзя удалять закрытый проект или проект, "
+                "в который уже были инвестированы деньги"
             ),
         )
 
@@ -48,7 +48,7 @@ def check_proj_unclose(project: CharityProject):
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
             detail=(
-                f'Закрытый проект нельзя редактировать'
+                'Закрытый проект нельзя редактировать'
             )
         )
 
@@ -58,6 +58,6 @@ def check_value(project: CharityProject, updade_data: CharityProjectUpdate):
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
             detail=(
-                f'Нельзя установить требуемую сумму меньше уже вложенной.'
+                'Нельзя установить требуемую сумму меньше уже вложенной.'
             )
         )
