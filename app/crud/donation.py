@@ -1,9 +1,5 @@
-from typing import Optional
-from datetime import datetime
-
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from fastapi.encoders import jsonable_encoder
 
 from app.models import Donation, User
 from .base import CRUDBase

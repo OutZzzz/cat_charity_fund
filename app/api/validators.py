@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.charity_projects import charity_project_crud
 from app.models import CharityProject
-from app.schemas.charityproject import CharityProjectCreate, CharityProjectUpdate
+from app.schemas import CharityProjectUpdate
 
 
 async def check_project_exists(
@@ -20,7 +20,7 @@ async def check_project_exists(
 
 
 async def check_name_unique(
-        project: CharityProjectCreate,
+        project,
         session: AsyncSession):
     project_name = await charity_project_crud.get_obj_with_same_name(
         project,
