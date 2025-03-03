@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from sqlalchemy import (
     Column, Integer, Boolean, DateTime)
 
@@ -9,7 +10,7 @@ class BaseDonationModel(Base):
     __abstract__ = True
 
     full_amount = Column(Integer, nullable=False)
-    invested_amount = Column(Integer, nullable=False)
-    fully_invested = Column(Boolean, nullable=False)
-    create_date = Column(DateTime, nullable=False)
+    invested_amount = Column(Integer, nullable=False, default=0)
+    fully_invested = Column(Boolean, nullable=False, default=False)
+    create_date = Column(DateTime, nullable=False, default=datetime.now())
     close_date = Column(DateTime, nullable=True)
