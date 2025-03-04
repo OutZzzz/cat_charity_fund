@@ -1,4 +1,8 @@
+import logging
+
 from pydantic import BaseSettings
+
+from app.core.constants import LOG_FORMAT
 
 
 class Settings(BaseSettings):
@@ -12,3 +16,7 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
